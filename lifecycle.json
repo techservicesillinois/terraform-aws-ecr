@@ -1,0 +1,30 @@
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Keep untagged images newer than 14 days",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": 14
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Keep up to five tagged images with prefix 'git-'",
+            "selection": {
+                "tagStatus": "tagged",
+                "tagPrefixList": ["git-"],
+                "countType": "imageCountMoreThan",
+                "countNumber": 5
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
