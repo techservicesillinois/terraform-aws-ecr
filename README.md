@@ -2,8 +2,8 @@
 
 Provides an [EC2 Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html)
 repository. In addition, it provides an optional default lifecycle
-policy that removes untagged images after 14 days, and retains only the 
-5 most recent images tagged with the prefix `git-`.
+policy.
+
 [Cross-account](https://aws.amazon.com/premiumsupport/knowledge-center/secondary-account-access-ecr/)
 access may also be enabled by setting the `readers` or `writers`
 arguments.
