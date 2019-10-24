@@ -1,0 +1,23 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::378517677616:root",
+                    "arn:aws:iam::224588347132:root"
+                 ]
+            },
+            "Action": [
+                "ecr:UploadLayerPart",
+                "ecr:PutImage",
+                "ecr:InitiateLayerUpload",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:CompleteLayerUpload",
+                "ecr:BatchCheckLayerAvailability"
+            ]
+        }
+    ]
+}
