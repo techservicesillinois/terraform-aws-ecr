@@ -1,9 +1,10 @@
 # ecr
 
+[![Build Status](https://drone.techservices.illinois.edu/api/badges/techservicesillinois/terraform-aws-ecr/status.svg)](https://drone.techservices.illinois.edu/techservicesillinois/terraform-aws-ecr)
+
 Provides an [EC2 Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html)
 repository. In addition, it provides an optional default lifecycle
 policy.
-
 [Cross-account](https://aws.amazon.com/premiumsupport/knowledge-center/secondary-account-access-ecr/)
 access may also be enabled by setting the `readers` or `writers`
 arguments.
@@ -13,7 +14,7 @@ Example Usage
 
 ```hcl
 module "foo" {
-  source = "git@github.com:cites-illinois/as-aws-modules//ecr"
+  source = "git@github.com:techservicesillinois/terraform-aws-ecr"
 
   name = "repoName"
   writers = ["arn:aws:iam::874445906176:root"]
