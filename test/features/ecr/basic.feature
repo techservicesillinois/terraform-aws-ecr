@@ -30,7 +30,7 @@ Feature: Typical successful instances of the ecr module.
             | name | ejtravis-test-ecr |
             
         # diff output (subset?)
-        Then terraform resource 'aws_ecr_lifecycle_policy' 'default' 'policy' JSON equals file '../../../ecr/lifecycle.json'
+        Then terraform resource 'aws_ecr_lifecycle_policy' 'default' 'policy' JSON equals file '../../../lifecycle.json'
     
     
     Scenario: Disable lifecycle policy
