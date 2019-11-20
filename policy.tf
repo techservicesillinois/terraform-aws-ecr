@@ -3,7 +3,7 @@ data "aws_iam_policy_document" "readers_writers" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = "${var.writers}"
+      identifiers = var.writers
     }
 
     actions = [
@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "readers_writers" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = "${var.readers}"
+      identifiers = var.readers
     }
 
     actions = [
@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "readers" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = "${var.readers}"
+      identifiers = var.readers
     }
 
     actions = [
@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "writers" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = "${var.writers}"
+      identifiers = var.writers
     }
 
     actions = [
