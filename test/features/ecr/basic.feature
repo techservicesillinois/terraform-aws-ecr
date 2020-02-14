@@ -1,11 +1,15 @@
 Feature: Typical successful instances of the ecr module.
-
+    Background:
+        Given the following variables
+            | key | value |
+            #--|--|
+            | name | behave-test-ecr-${random:10} |
 
     Scenario: Simple Configuration
         Given terraform module 'ecr'
             | key    | value               |
             #--------|---------------------|
-            | name   | "ejtravis-test-ecr" |
+            | name   | "${var.name}" |
         
         When we run terraform plan
         #This step should be run by the step below
@@ -27,7 +31,7 @@ Feature: Typical successful instances of the ecr module.
         Then terraform resource 'aws_ecr_repository' 'default' has changed attributes
             | key  | value             |
             #------|-------------------|
-            | name | ejtravis-test-ecr |
+            | name | ${var.name} |
             
         # diff output (subset?)
         Then terraform resource 'aws_ecr_lifecycle_policy' 'default' 'policy' JSON equals file '../../../lifecycle.json'
@@ -37,8 +41,8 @@ Feature: Typical successful instances of the ecr module.
         Given terraform module 'ecr'
             | key                      | value               |
             #--------------------------|---------------------|
-            | name                     | "ejtravis-test-ecr" |
-            | disable_lifecycle_policy | "true"              |
+            | name                     | "${var.name}" |
+            | disable_lifecycle_policy | "true"          |
         
         When we run terraform plan
         Then terraform plans to perform these exact resource actions
@@ -49,14 +53,14 @@ Feature: Typical successful instances of the ecr module.
         Then terraform resource 'aws_ecr_repository' 'default' has changed attributes
             | key  | value             |
             #------|-------------------|
-            | name | ejtravis-test-ecr |
+            | name | ${var.name} |
         
     
     Scenario: Alternative lifecycle policy path/file
         Given terraform module 'ecr'
-            | key                      | value               |
+            | key | value |
             #--------------------------|---------------------|
-            | name                     | "ejtravis-test-ecr" |
+            | name                     | "${var.name}" |
             | lifecycle_policy_path    | "alt_policy.json"   |
         
         Given terraform file paths
@@ -69,15 +73,15 @@ Feature: Typical successful instances of the ecr module.
         Then terraform plans to perform these exact resource actions
             | action | resource                 | name    | count |
             #--------|--------------------------|---------|-------|
-            | create | aws_ecr_repository       | default |       |
-            |        | aws_ecr_lifecycle_policy | default |       |
+            | create | aws_ecr_repository       | default |  |
+            |        | aws_ecr_lifecycle_policy | default |  |
         
 
     Scenario Outline: Add readers OR writers
         Given terraform module 'ecr'
             | key                      | value               |
             #--------------------------|---------------------|
-            | name                     | "ejtravis-test-ecr" |
+            | name                     | "${var.name}" |
         
         # Write to tfvars as you go
 
@@ -109,7 +113,7 @@ Feature: Typical successful instances of the ecr module.
         Given terraform module 'ecr'
             | key                      | value               |
             #--------------------------|---------------------|
-            | name                     | "ejtravis-test-ecr" |
+            | name | "${var.name}" |
         
         # Write to tfvars as you go
 
