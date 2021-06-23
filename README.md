@@ -1,6 +1,6 @@
 # ecr
 
-[![Build Status](https://drone.techservices.illinois.edu/api/badges/techservicesillinois/terraform-aws-ecr/status.svg)](https://drone.techservices.illinois.edu/techservicesillinois/terraform-aws-ecr)
+[![Terraform actions status](https://github.com/techservicesillinois/terraform-aws-ecr/workflows/terraform/badge.svg)](https://github.com/techservicesillinois/terraform-aws-ecr/actions)
 
 Provides an [EC2 Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html)
 repository. In addition, it provides an optional default lifecycle
