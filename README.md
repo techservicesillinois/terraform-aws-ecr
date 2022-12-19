@@ -2,12 +2,11 @@
 
 [![Terraform actions status](https://github.com/techservicesillinois/terraform-aws-ecr/workflows/terraform/badge.svg)](https://github.com/techservicesillinois/terraform-aws-ecr/actions)
 
-Provides an [EC2 Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html)
-repository. In addition, it provides an optional default lifecycle
+Provides an [Elastic Container Registry repository](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ECR_GetStarted.html). In addition, it provides an optional default lifecycle
 policy.
+
 [Cross-account](https://aws.amazon.com/premiumsupport/knowledge-center/secondary-account-access-ecr/)
-access may also be enabled by setting the `readers` or `writers`
-arguments.
+access may be enabled by setting the `readers` or `writers` arguments.
 
 Example Usage
 -----------------
@@ -28,13 +27,15 @@ The following arguments are supported:
 
 * `name` - (Required) Name of the repository.
 
-* `disable_lifecycle_policy` - If set to 'true', no lifecycle policy is applied.
+* `disable_lifecycle_policy` - (Optional) If set to 'true', no lifecycle policy is applied. Default is 'false'.
 
-* `lifecycle_policy_path` – Path to JSON document containing lifecycle policy.
+* `lifecycle_policy_path` – (Optional) Path to JSON document containing lifecycle policy.
 
-* `readers` - List of account ARNs that can pull images.
+* `readers` - (Optional) List of account ARNs that can pull images.
 
-* `writers` - List of account ARNs that can push images.
+* `writers` - (Optional) List of account ARNs that can push images.
+
+* `tags` - (Optional) Map of tags for resources where supported.
 
 Attributes Reference
 --------------------

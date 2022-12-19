@@ -23,3 +23,9 @@ variable "writers" {
   type        = list(string)
   default     = []
 }
+
+variable "tags" {
+  description = "Map of tags for resources where supported"
+  type        = map(string)
+  default     = {}
+}

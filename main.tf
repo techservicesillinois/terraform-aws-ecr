@@ -4,6 +4,7 @@ locals {
 
 resource "aws_ecr_repository" "default" {
   name = var.name
+  tags = var.tags
 }
 
 # Only one of the following aws_ecr_repository_policy resources will be built
