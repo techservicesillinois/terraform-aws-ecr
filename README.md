@@ -15,7 +15,10 @@ Example Usage
 module "foo" {
   source = "git@github.com:techservicesillinois/terraform-aws-ecr"
 
-  name = "repoName"
+  repos = [
+    "repo_name_1",
+    "repo_name_2",
+  ]
   writers = ["arn:aws:iam::874445906176:root"]
 }
 ```
@@ -25,25 +28,25 @@ Argument Reference
 
 The following arguments are supported:
 
-* `name` - (Required) Name of the repository.
-
 * `disable_lifecycle_policy` - (Optional) If set to 'true', no lifecycle policy is applied. Default is 'false'.
 
 * `lifecycle_policy_path` – (Optional) Path to JSON document containing lifecycle policy.
 
 * `readers` - (Optional) List of account ARNs that can pull images.
 
-* `writers` - (Optional) List of account ARNs that can push images.
+* `repos` - (Required) List of repository names.
 
 * `tags` - (Optional) Map of tags for resources where supported.
+
+* `writers` - (Optional) List of account ARNs that can push images.
+
+### Debugging
+
+* `_debug` - (Optional) If set, produce verbose output for debugging.
 
 Attributes Reference
 --------------------
 
-The following attributes are exported:
+The following attribute is exported:
 
-* `arn` - Full ARN of the repository.
-* `name` - The name of the repository.
-* `registry_id` - The registry ID where the repository was created.
-* `repository_url` - The URL of the repository (in the form
-    `aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName`).
+* `repos` - Map wherein each key/value pair consists of a repo name and URL.

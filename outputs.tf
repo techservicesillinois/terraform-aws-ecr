@@ -1,15 +1,13 @@
-output "arn" {
-  value = aws_ecr_repository.default.arn
+output "repos" {
+  value = { for r in aws_ecr_repository.default : r.name => r.repository_url }
 }
 
-output "name" {
-  value = aws_ecr_repository.default.name
+# Debug outputs.
+
+output "_actions" {
+  value = (var._debug) ? local.actions : null
 }
 
-output "registry_id" {
-  value = aws_ecr_repository.default.registry_id
-}
-
-output "repository_url" {
-  value = aws_ecr_repository.default.repository_url
+output "_identifiers" {
+  value = (var._debug) ? local.identifiers : null
 }

@@ -1,39 +1,38 @@
 locals {
-  lifecycle_policy_path = var.lifecycle_policy_path != "" ? var.lifecycle_policy_path : "${path.module}/lifecycle.json"
+  # Use lifecycle policy path specified by user; otherwise use default in-module lifecycle.json file.
+  lifecycle_policy_path = var.lifecycle_policy_path != null ? var.lifecycle_policy_path : format("%s/lifecycle.json", path.module)
+
+  # Build list of actions for IAM policy depending on definition of
+  # readers and writers.
+  actions = sort(distinct(concat(length(var.readers) > 0 ? local.actions_read : [], length(var.writers) > 0 ? local.actions_write : [])))
+
+  # Build list of identifiers depending on definition of readers and writers.
+  identifiers = sort(distinct(concat(var.readers, var.writers)))
+
+  # Build list of repo names from aws_ecr_repository resources.
+  repo_names = sort([for r in aws_ecr_repository.default : r.name])
 }
+
 
 resource "aws_ecr_repository" "default" {
-  name = var.name
-  tags = var.tags
+  for_each = toset(var.repos)
+  name     = each.key
+  tags     = var.tags
 }
-
-# Only one of the following aws_ecr_repository_policy resources will be built
-#------------------------------------------------
-resource "aws_ecr_repository_policy" "readers_writers" {
-  count = length(var.readers) > 0 && length(var.writers) > 0 ? 1 : 0
-
-  repository = aws_ecr_repository.default.name
-  policy     = data.aws_iam_policy_document.readers_writers.json
-}
-
-resource "aws_ecr_repository_policy" "readers" {
-  count = length(var.readers) > 0 && length(var.writers) == 0 ? 1 : 0
-
-  repository = aws_ecr_repository.default.name
-  policy     = data.aws_iam_policy_document.readers.json
-}
-
-resource "aws_ecr_repository_policy" "writers" {
-  count = length(var.readers) == 0 && length(var.writers) > 0 ? 1 : 0
-
-  repository = aws_ecr_repository.default.name
-  policy     = data.aws_iam_policy_document.writers.json
-}
-
-#------------------------------------------------
 
 resource "aws_ecr_lifecycle_policy" "default" {
-  count      = var.disable_lifecycle_policy ? 0 : 1
-  repository = aws_ecr_repository.default.name
+  # If lifecycle policy isn't disabled, apply to each repo.
+  for_each = toset(var.disable_lifecycle_policy ? [] : local.repo_names)
+
+  repository = each.key
   policy     = file(local.lifecycle_policy_path)
+}
+
+resource "aws_ecr_repository_policy" "default" {
+  # If identifier list isn't empty (i.e., if readers or writers are
+  # defined), apply appropriate IAM policy to each repo.
+  for_each = toset(length(local.identifiers) > 0 ? local.repo_names : [])
+
+  repository = each.key
+  policy     = data.aws_iam_policy_document.default.json
 }
