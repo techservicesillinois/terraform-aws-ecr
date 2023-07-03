@@ -1,15 +1,11 @@
-variable "name" {
-  description = "Name of repository."
-}
-
 variable "disable_lifecycle_policy" {
-  description = "If set to 'true', no lifecycle policy is applied."
+  description = "If true, no lifecycle policy is applied."
   default     = false
 }
 
 variable "lifecycle_policy_path" {
   description = "Path to JSON document containing lifecycle policy."
-  default     = ""
+  default     = null
 }
 
 variable "readers" {
@@ -18,14 +14,27 @@ variable "readers" {
   default     = []
 }
 
-variable "writers" {
-  description = "List of account ARNs that can push images."
+variable "repos" {
+  description = "List of ECR repository names."
   type        = list(string)
-  default     = []
 }
 
 variable "tags" {
   description = "Map of tags for resources where supported"
   type        = map(string)
   default     = {}
+}
+
+variable "writers" {
+  description = "List of account ARNs that can push images."
+  type        = list(string)
+  default     = []
+}
+
+# Debugging.
+
+variable "_debug" {
+  description = "Produce debug output (boolean)"
+  type        = bool
+  default     = false
 }
