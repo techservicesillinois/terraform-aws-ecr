@@ -2,7 +2,10 @@ locals {
   actions_read = [
     "ecr:BatchCheckLayerAvailability",
     "ecr:BatchGetImage",
+    "ecr:DescribeImages",
+    "ecr:DescribeRepositories",
     "ecr:GetDownloadUrlForLayer",
+    "ecr:ListImages",
   ]
   actions_write = [
     "ecr:BatchCheckLayerAvailability",

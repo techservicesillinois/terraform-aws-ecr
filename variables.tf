@@ -9,7 +9,7 @@ variable "lifecycle_policy_path" {
 }
 
 variable "readers" {
-  description = "List of account ARNs that can pull images."
+  description = "List of account ARNs that can pull images. These accounts are also granted describe and list access to the corresponding repo(s) and images."
   type        = list(string)
   default     = []
 }
