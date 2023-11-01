@@ -32,7 +32,7 @@ The following arguments are supported:
 
 * `lifecycle_policy_path` – (Optional) Path to JSON document containing lifecycle policy.
 
-* `readers` - (Optional) List of account ARNs that can pull images.
+* `readers` - (Optional) List of account ARNs that can pull images. These accounts are also granted describe and list access to the corresponding repo(s) and images.
 
 * `repos` - (Required) List of repository names.
 
