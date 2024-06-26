@@ -3,6 +3,12 @@ variable "disable_lifecycle_policy" {
   default     = false
 }
 
+variable "lambda_arns" {
+  description = "List of lambda ARNs that can pull images."
+  type        = list(string)
+  default     = []
+}
+
 variable "lifecycle_policy_path" {
   description = "Path to JSON document containing lifecycle policy."
   default     = null
