@@ -21,11 +21,35 @@ locals {
 
 data "aws_iam_policy_document" "default" {
   statement {
+    sid = "ECRImageCrossAccountBasic"
     principals {
       type        = "AWS"
       identifiers = local.identifiers
     }
 
     actions = local.actions
+  }
+
+  dynamic "statement" {
+    for_each = toset(length(var.lambda_arns) > 0 ? [""] : [])
+
+    content {
+      sid = "ECRImageCrossAccountLambda"
+      principals {
+        type        = "Service"
+        identifiers = ["lambda.amazonaws.com"]
+      }
+
+      actions = [
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer",
+      ]
+
+      condition {
+        test     = "StringLike"
+        variable = "aws:sourceArn"
+        values   = var.lambda_arns
+      }
+    }
   }
 }

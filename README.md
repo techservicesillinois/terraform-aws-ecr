@@ -15,11 +15,12 @@ Example Usage
 module "foo" {
   source = "git@github.com:techservicesillinois/terraform-aws-ecr"
 
+  lambda_arns = ["arn:aws:lambda:us-east-1: 874445906176:function:*"]
   repos = [
     "repo_name_1",
     "repo_name_2",
   ]
-  writers = ["arn:aws:iam::874445906176:root"]
+  readers = ["arn:aws:iam::874445906176:root"]
 }
 ```
 
@@ -29,6 +30,8 @@ Argument Reference
 The following arguments are supported:
 
 * `disable_lifecycle_policy` - (Optional) If set to 'true', no lifecycle policy is applied. Default is 'false'.
+
+* `lambda_arns` – (Optional) List of lambda function ARNs that can pull images at launch.
 
 * `lifecycle_policy_path` – (Optional) Path to JSON document containing lifecycle policy.
 
