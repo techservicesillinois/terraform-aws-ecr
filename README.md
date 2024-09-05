@@ -20,7 +20,8 @@ module "foo" {
     "repo_name_1",
     "repo_name_2",
   ]
-  readers = ["arn:aws:iam::874445906176:root"]
+  readers      = ["arn:aws:iam::874445906176:root"]
+  scan_on_push = true
 }
 ```
 
@@ -38,6 +39,8 @@ The following arguments are supported:
 * `readers` - (Optional) List of account ARNs that can pull images. These accounts are also granted describe and list access to the corresponding repo(s) and images.
 
 * `repos` - (Required) List of repository names.
+
+* `scan_on_push` – (Optional) Boolean indicating whether images are scanned after being pushed to the repository. Defaults to `true`.
 
 * `tags` - (Optional) Map of tags for resources where supported.
 

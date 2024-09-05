@@ -18,6 +18,10 @@ resource "aws_ecr_repository" "default" {
   for_each = toset(var.repos)
   name     = each.key
   tags     = var.tags
+
+  image_scanning_configuration {
+    scan_on_push = var.scan_on_push
+  }
 }
 
 resource "aws_ecr_lifecycle_policy" "default" {
