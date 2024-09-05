@@ -25,6 +25,12 @@ variable "repos" {
   type        = list(string)
 }
 
+variable "scan_on_push" {
+  description = "Boolean indicating whether images are scanned after being pushed to the repository"
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "Map of tags for resources where supported"
   type        = map(string)
